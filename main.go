@@ -3,5 +3,6 @@ package main
 const cliCustomCmd = "Pokedex > "
 
 func main() {
-	startRepl(cliCustomCmd)
+	cfg := &config{}
+	startRepl(cliCustomCmd, cfg)
 }
