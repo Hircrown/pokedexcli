@@ -1,9 +1,7 @@
 package main
 
-import (
-	"fmt"
-)
+const cliCustomCmd = "Pokedex > "
 
 func main() {
-	fmt.Println("Hello, World!")
+	startRepl(cliCustomCmd)
 }
