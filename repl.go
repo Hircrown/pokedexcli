@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/Hircrown/pokedexcli/internal/pokecache"
 )
 
 func cleanInput(text string) []string {
@@ -31,13 +33,14 @@ func startRepl(placeholder string, cfg *config) {
 			fmt.Println("Unknown command")
 		} else {
 			if err := cmd.callback(cfg); err != nil {
-				fmt.Errorf("Callback error: %w", err)
+				fmt.Printf("Callback error: %v\n", err)
 			}
 		}
 	}
 }
 
 type config struct {
+	cache    pokecache.Cache
 	previous *string
 	next     *string
 }
@@ -54,6 +57,11 @@ func getCommands() map[string]cliCommand {
 			name:        "map",
 			description: "Display the names of 20 location areas in the Pokemon world",
 			callback:    commandMap,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Display the names of the previous 20 location areas in the Pokemon world",
+			callback:    commandMapb,
 		},
 		"help": {
 			name:        "help",

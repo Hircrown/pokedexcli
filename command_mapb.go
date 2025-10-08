@@ -6,8 +6,11 @@ import (
 	"github.com/Hircrown/pokedexcli/internal/pokeapi"
 )
 
-func commandMap(cfg *config) error {
-	locations, err := pokeapi.LocationAreaList(cfg.next, cfg.cache)
+func commandMapb(cfg *config) error {
+	if cfg.previous == nil {
+		return fmt.Errorf("you are on the first page")
+	}
+	locations, err := pokeapi.LocationAreaList(cfg.previous, cfg.cache)
 	if err != nil {
 		return err
 	}
