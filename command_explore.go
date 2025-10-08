@@ -7,13 +7,13 @@ import (
 )
 
 func commandExplore(cfg *config) error {
-	pokemons, err := pokeapi.PokemonList(cfg.pokemonLocation, cfg.cache)
+	pokemonByLocation, err := pokeapi.PokemonList(cfg.pokemonLocation, cfg.cache)
 	if err != nil {
 		return err
 	}
 
-	for _, pokemon := range pokemons.PokemonEncounters {
-		fmt.Println(pokemon.Pokemon.Name)
+	for _, encounter := range pokemonByLocation.PokemonEncounters {
+		fmt.Println(encounter.Pokemon.Name)
 	}
 
 	return nil

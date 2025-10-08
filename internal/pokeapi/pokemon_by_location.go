@@ -1,6 +1,6 @@
 package pokeapi
 
-type Pokemon struct {
+type PokemonByLocation struct {
 	EncounterMethodRates []struct {
 		EncounterMethod struct {
 			Name string `json:"name"`

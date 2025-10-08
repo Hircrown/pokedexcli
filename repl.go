@@ -36,6 +36,14 @@ func startRepl(placeholder string, cfg *config) {
 			}
 		}
 
+		if cmdName == "catch" {
+			if len(words) != 2 {
+				fmt.Printf("Usage: %s pokemonName -> Example: %s mewtwo", cmdName, cmdName)
+			} else {
+				cfg.pokemonName = words[1]
+			}
+		}
+
 		cmd, exists := getCommands()[cmdName]
 		if !exists {
 			fmt.Println("Unknown command")
@@ -52,6 +60,7 @@ type config struct {
 	previous        *string
 	next            *string
 	pokemonLocation string
+	pokemonName     string
 }
 
 type cliCommand struct {
