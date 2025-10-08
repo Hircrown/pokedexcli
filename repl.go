@@ -28,6 +28,14 @@ func startRepl(placeholder string, cfg *config) {
 
 		cmdName := words[0]
 
+		if cmdName == "explore" {
+			if len(words) != 2 {
+				fmt.Println("Usage: explore location-area -> Example: explore canalave-city-area")
+			} else {
+				cfg.pokemonLocation = words[1]
+			}
+		}
+
 		cmd, exists := getCommands()[cmdName]
 		if !exists {
 			fmt.Println("Unknown command")
@@ -40,9 +48,10 @@ func startRepl(placeholder string, cfg *config) {
 }
 
 type config struct {
-	cache    pokecache.Cache
-	previous *string
-	next     *string
+	cache           pokecache.Cache
+	previous        *string
+	next            *string
+	pokemonLocation string
 }
 
 type cliCommand struct {
@@ -62,6 +71,11 @@ func getCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "Display the names of the previous 20 location areas in the Pokemon world",
 			callback:    commandMapb,
+		},
+		"explore": {
+			name:        "explore",
+			description: "List all the Pokemon located in a specific area",
+			callback:    commandExplore,
 		},
 		"help": {
 			name:        "help",
