@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Hircrown/pokedexcli/internal/pokeapi"
 	"github.com/Hircrown/pokedexcli/internal/pokecache"
 )
 
@@ -28,7 +29,7 @@ func startRepl(placeholder string, cfg *config) {
 
 		cmdName := words[0]
 
-		if cmdName == "explore" {
+		if cmdName == "explore" || cmdName == "inspect" {
 			if len(words) != 2 {
 				fmt.Println("Usage: explore location-area -> Example: explore canalave-city-area")
 			} else {
@@ -38,7 +39,8 @@ func startRepl(placeholder string, cfg *config) {
 
 		if cmdName == "catch" {
 			if len(words) != 2 {
-				fmt.Printf("Usage: %s pokemonName -> Example: %s mewtwo", cmdName, cmdName)
+				fmt.Printf("Usage: %s pokemonName -> Example: %s mewtwo\n", cmdName, cmdName)
+				continue
 			} else {
 				cfg.pokemonName = words[1]
 			}
@@ -61,6 +63,7 @@ type config struct {
 	next            *string
 	pokemonLocation string
 	pokemonName     string
+	pokedex         map[string]pokeapi.Pokemon
 }
 
 type cliCommand struct {
@@ -85,6 +88,11 @@ func getCommands() map[string]cliCommand {
 			name:        "explore",
 			description: "List all the Pokemon located in a specific area",
 			callback:    commandExplore,
+		},
+		"catch": {
+			name:        "catch",
+			description: "Try to catch a Pokemon",
+			callback:    commandCatch,
 		},
 		"help": {
 			name:        "help",

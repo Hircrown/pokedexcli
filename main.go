@@ -3,6 +3,7 @@ package main
 import (
 	"time"
 
+	"github.com/Hircrown/pokedexcli/internal/pokeapi"
 	"github.com/Hircrown/pokedexcli/internal/pokecache"
 )
 
@@ -13,7 +14,8 @@ const (
 
 func main() {
 	cfg := &config{
-		cache: pokecache.NewCache(cacheInterval),
+		cache:   pokecache.NewCache(cacheInterval),
+		pokedex: make(map[string]pokeapi.Pokemon),
 	}
 	startRepl(cliCustomCmd, cfg)
 }
