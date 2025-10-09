@@ -31,7 +31,7 @@ func startRepl(placeholder string, cfg *config) {
 
 		if cmdName == "explore" || cmdName == "inspect" {
 			if len(words) != 2 {
-				fmt.Println("Usage: explore location-area -> Example: explore canalave-city-area")
+				fmt.Printf("Usage: %s location-area -> Example: %s canalave-city-area\n", cmdName, cmdName)
 			} else {
 				cfg.pokemonLocation = words[1]
 			}
@@ -93,6 +93,11 @@ func getCommands() map[string]cliCommand {
 			name:        "catch",
 			description: "Try to catch a Pokemon",
 			callback:    commandCatch,
+		},
+		"inspect": {
+			name:        "inspect",
+			description: "Show the pokemon info you have in your Pokedex",
+			callback:    commandInspect,
 		},
 		"help": {
 			name:        "help",
